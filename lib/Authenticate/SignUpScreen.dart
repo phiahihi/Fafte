@@ -5,21 +5,21 @@ import 'package:chat_app_b/wigdets/buttons.dart';
 import '../constants/colors.dart';
 import '../constants/fonts.dart';
 import '../constants/sizes.dart';
-import 'SignUpScreen.dart';
-import '../screens/HomeScreen.dart';
 import '/Authenticate/Methods.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpState extends State<SignUp> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  final TextEditingController _againPassword = TextEditingController();
+
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
   bool _emailValid(String email) {
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .hasMatch(email);
   }
 
-  void _loginWithEmail() {
+  void _signup() {
     if (_formKey.currentState!.validate()) {
       // If the form is valid, display a snackbar. In the real world,
       // you'd often call a server or save the information in a database.
@@ -36,18 +36,21 @@ class _LoginScreenState extends State<LoginScreen> {
         const SnackBar(content: Text('Processing Data')),
       );
 
-      if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
+      if (_email.text.isNotEmpty &&
+          _email.text.isNotEmpty &&
+          _password.text.isNotEmpty) {
         setState(() {
           isLoading = true;
         });
 
-        logIn(_email.text, _password.text).then((user) {
+        createAccount(_email.text, _email.text, _againPassword.text)
+            .then((user) {
           if (user != null) {
-            print("Login Sucessfull");
             setState(() {
               isLoading = false;
             });
             navigateTo(Routes.home);
+            print("Account Created Sucessfull");
           } else {
             print("Login Failed");
             setState(() {
@@ -56,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         });
       } else {
-        print("Please fill form correctly");
+        print("Please enter Fields");
       }
     }
   }
@@ -98,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Đăng nhập',
+                          'Đăng kí',
                           textAlign: TextAlign.start,
                           style: FontsApp().fontBodyLarge,
                         ),
@@ -142,46 +145,30 @@ class _LoginScreenState extends State<LoginScreen> {
                           }),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(SizesApp.s16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Bạn quên mật khẩu?',
-                              style: FontsApp().fontBodySmall.copyWith(
-                                  color: ColorsApp.colorHintText,
-                                  fontSize: SizesApp.s14),
-                            ),
-                            const SizedBox(
-                              width: SizesApp.s4,
-                            ),
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  minimumSize: const Size(0, 0),
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap),
-                              child: Text(
-                                'Tại đây',
-                                style: FontsApp()
-                                    .fontBodySmall
-                                    .copyWith(fontSize: SizesApp.s14),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => const ForgotPassword()));
-                              },
-                            )
-                          ],
+                      Container(
+                        width: size.width,
+                        alignment: Alignment.center,
+                        child: field(
+                          size,
+                          hintText: 'Nhập lại mật khẩu',
+                          icon: Icons.lock_clock_rounded,
+                          cont: _againPassword,
+                          isPassword: true,
+                          validator: ((value) {
+                            if (value == _password.text) {
+                              return null;
+                            } else {
+                              return 'Mật khẩu không khớp';
+                            }
+                          }),
                         ),
                       ),
                       const SizedBox(
                         height: SizesApp.s48,
                       ),
                       OutlineButton(
-                        text: 'Đăng nhập',
-                        onPressed: _loginWithEmail,
+                        text: 'Đăng kí',
+                        onPressed: _signup,
                       ),
                     ],
                   ),

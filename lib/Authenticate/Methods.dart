@@ -57,10 +57,11 @@ Future logOut(BuildContext context) async {
 
   try {
     await _auth.signOut().then((value) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => LoginScreen()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => const LoginScreen()));
     });
   } catch (e) {
-    print("error");
+    print(e);
   }
 }
 

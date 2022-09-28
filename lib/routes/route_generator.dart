@@ -1,6 +1,7 @@
 import 'package:chat_app_b/Authenticate/Autheticate.dart';
-import 'package:chat_app_b/Authenticate/CreateAccount.dart';
+import 'package:chat_app_b/Authenticate/SignUpScreen.dart';
 import 'package:chat_app_b/Authenticate/LoginScreen.dart';
+import 'package:chat_app_b/Authenticate/forgot_password.dart';
 import 'package:chat_app_b/routes/routes.dart';
 import 'package:chat_app_b/screens/HomeScreen.dart';
 import 'package:chat_app_b/screens/authentication/intro_screen.dart';
@@ -16,26 +17,31 @@ class RouteGenerator {
 
     if (settings.name == Routes.splash) {
       return PageTransition(
-          child: const SplashScreen(), type: PageTransitionType.rightToLeft);
+          child: const SplashScreen(), type: PageTransitionType.bottomToTop);
     }
     if (settings.name == Routes.home) {
       return PageTransition(
-          child: HomeScreen(), type: PageTransitionType.rightToLeft);
+          child: HomeScreen(), type: PageTransitionType.bottomToTop);
     }
 
     if (settings.name == Routes.login) {
       return PageTransition(
-          child: const LoginScreen(), type: PageTransitionType.rightToLeft);
+          child: const LoginScreen(), type: PageTransitionType.bottomToTop);
     }
 
     if (settings.name == Routes.intro) {
       return PageTransition(
-          child: const IntroScreen(), type: PageTransitionType.rightToLeft);
+          child: const IntroScreen(), type: PageTransitionType.bottomToTop);
     }
 
     if (settings.name == Routes.signup) {
       return PageTransition(
-          child: const CreateAccount(), type: PageTransitionType.rightToLeft);
+          child: const SignUp(), type: PageTransitionType.bottomToTop);
+    }
+
+    if (settings.name == Routes.forgotPassword) {
+      return PageTransition(
+          child: const ForgotPassword(), type: PageTransitionType.bottomToTop);
     }
     return null;
   }
