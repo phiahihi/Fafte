@@ -1,11 +1,11 @@
 import 'package:chat_app_b/auth/intro/view/intro_page.dart';
 import 'package:chat_app_b/auth/signin/signin.dart';
-import 'package:chat_app_b/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/repository/app_repository.dart';
 import '../../data/sharedprefs/constants.dart';
+import '../../main/view/main_page.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -47,9 +47,9 @@ class SplashPage extends StatelessWidget {
             }
             if (snapshot.data![0] == false && snapshot.data![1] == true) {
               // Not a new user and logged in
-              return const HomePage();
+              return const MainPage();
             }
-            return const HomePage();
+            return const MainPage();
           }
         },
       ),

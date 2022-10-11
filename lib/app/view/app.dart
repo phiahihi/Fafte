@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../auth/bloc/auth_bloc.dart';
 import '../../auth/data/repository/auth_repository.dart';
 import '../../data/repository/app_repository.dart';
-import '../../home/bloc/home_bloc.dart';
-import '../../home/data/repository/home_repository.dart';
+import '../../main/main_home.dart';
 import '../routes/app_routes.dart';
 
 class App extends StatelessWidget {
@@ -18,8 +17,8 @@ class App extends StatelessWidget {
         RepositoryProvider<AppRepository>(
           create: (context) => AppRepository(),
         ),
-        RepositoryProvider<HomeRepository>(
-          create: (context) => HomeRepository(),
+        RepositoryProvider<MainRepository>(
+          create: (context) => MainRepository(),
         ),
         RepositoryProvider<AuthRepository>(
           create: (context) => AuthRepository(),
@@ -39,9 +38,9 @@ class App extends StatelessWidget {
               appRepository: RepositoryProvider.of<AppRepository>(context),
             ),
           ),
-          BlocProvider<HomeBloc>(
-            create: (context) => HomeBloc(
-              RepositoryProvider.of<HomeRepository>(context),
+          BlocProvider<MainBloc>(
+            create: (context) => MainBloc(
+              RepositoryProvider.of<MainRepository>(context),
             ),
           ),
           // BlocProvider<CartBloc>(

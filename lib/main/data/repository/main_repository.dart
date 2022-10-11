@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '/data/repository/app_repository.dart';
 import '/data/sharedprefs/constants.dart';
-import '/home/data/models/product.dart';
+import '/main/data/models/product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeRepository {
+class MainRepository {
   final firestore = FirebaseFirestore.instance;
   final productCollectionRed =
       FirebaseFirestore.instance.collection('products');

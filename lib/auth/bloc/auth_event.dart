@@ -27,17 +27,12 @@ class ForgotPasswordRequested extends AuthEvent {
 }
 
 class ChangePasswordRequested extends AuthEvent {
-  ChangePasswordRequested(this.email, this.context);
-  final String email;
-  final BuildContext context;
+  ChangePasswordRequested(this.password);
+  final String password;
 }
 
 // When the user signing in with google this event is called and the [AuthRepository] is called to sign in the user
 class GoogleSignInRequested extends AuthEvent {}
 
 // When the user signing out this event is called and the [AuthRepository] is called to sign out the user
-class SignOutRequested extends AuthEvent {
-  final BuildContext context;
-
-  SignOutRequested(this.context);
-}
+class SignOutRequested extends AuthEvent {}

@@ -93,7 +93,7 @@ class AuthRepository {
     }
   }
 
-  Future<void> createNewUser(
+  Future createNewUser(
     UserCredential userCredential, [
     String? userName,
   ]) async {
@@ -108,6 +108,14 @@ class AuthRepository {
       final uId = userCredential.user?.uid;
       await _prefs.setString(Preferences.user_id, uId!);
       appRepository.setUserId = uId;
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> changePassword({required String password}) async {
+    try {
+      await FirebaseAuth.instance.currentUser?.updatePassword(password);
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
