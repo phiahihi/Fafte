@@ -1,86 +1,122 @@
-import 'LoginScreen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 
-Future<User?> createAccount(String name, String email, String password) async {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+// import 'LoginScreen.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
 
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+// Future<User?> createAccount(String name, String email, String password) async {
+//   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  try {
-    UserCredential userCrendetial = await _auth.createUserWithEmailAndPassword(
-        email: email, password: password);
+//   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-    print("Account created Succesfull");
+//   try {
+//     UserCredential userCrendetial = await _auth.createUserWithEmailAndPassword(
+//         email: email, password: password);
 
-    userCrendetial.user!.updateDisplayName(name);
+//     print("Account created Succesfull");
 
-    await _firestore.collection('users').doc(_auth.currentUser!.uid).set({
-      "name": name,
-      "email": email,
-      "status": "Unavalible",
-      "uid": _auth.currentUser!.uid,
-    });
+//     userCrendetial.user!.updateDisplayName(name);
 
-    return userCrendetial.user;
-  } catch (e) {
-    print(e);
-    return null;
-  }
-}
+//     await _firestore.collection('users').doc(_auth.currentUser!.uid).set({
+//       "name": name,
+//       "email": email,
+//       "status": "Unavalible",
+//       "uid": _auth.currentUser!.uid,
+//     });
 
-Future<User?> logIn(String email, String password) async {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+//     return userCrendetial.user;
+//   } catch (e) {
+//     print(e);
+//     return null;
+//   }
+// }
 
-  try {
-    UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email, password: password);
+// Future<User?> logIn(String email, String password) async {
+//   FirebaseAuth _auth = FirebaseAuth.instance;
+//   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-    print("Login Sucessfull");
-    _firestore
-        .collection('users')
-        .doc(_auth.currentUser!.uid)
-        .get()
-        .then((value) => userCredential.user!.updateDisplayName(value['name']));
+//   try {
+//     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+//         email: email, password: password);
 
-    return userCredential.user;
-  } catch (e) {
-    print(e);
-    return null;
-  }
-}
+//     print("Login Sucessfull");
+//     _firestore
+//         .collection('users')
+//         .doc(_auth.currentUser!.uid)
+//         .get()
+//         .then((value) => userCredential.user!.updateDisplayName(value['name']));
 
-Future logOut(BuildContext context) async {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+//     return userCredential.user;
+//   } catch (e) {
+//     print(e);
+//     return null;
+//   }
+// }
 
-  try {
-    await _auth.signOut().then((value) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const LoginScreen()));
-    });
-  } catch (e) {
-    print(e);
-  }
-}
+// Future logOut(BuildContext context) async {
+//   FirebaseAuth _auth = FirebaseAuth.instance;
 
-Future forgotPassword(String email) async {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  try {
-    await _auth.sendPasswordResetEmail(email: email);
-    print('Password reset success ');
-  } catch (e) {
-    print("error");
-  }
-}
+//   try {
+//     await _auth.signOut().then((value) {
+//       Navigator.pushReplacement(
+//           context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+//     });
+//   } catch (e) {
+//     print(e);
+//   }
+// }
 
-Future changePassword(String newPassword) async {
-  final _auth = FirebaseAuth.instance.currentUser;
-  try {
-    await _auth?.updatePassword(newPassword);
-    print('Chang Password succesfully');
-  } catch (e) {
-    print(e);
-  }
-}
+// Future forgotPassword(String email) async {
+//   FirebaseAuth _auth = FirebaseAuth.instance;
+//   try {
+//     await _auth.sendPasswordResetEmail(email: email);
+//     print('Password reset success ');
+//   } catch (e) {
+//     print("error");
+//   }
+// }
+
+// Future changePassword(String newPassword) async {
+//   final _auth = FirebaseAuth.instance.currentUser;
+//   try {
+//     await _auth?.updatePassword(newPassword);
+//     print('Chang Password succesfully');
+//   } catch (e) {
+//     print(e);
+//   }
+// }
+
+// Future signInWithGoogle() async {
+//   // Trigger the authentication flow
+//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+//   FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+//   // Obtain the auth details from the request
+//   final GoogleSignInAuthentication? googleAuth =
+//       await googleUser?.authentication;
+
+//   // Create a new credential
+//   final credential = GoogleAuthProvider.credential(
+//     accessToken: googleAuth?.accessToken,
+//     idToken: googleAuth?.idToken,
+//   );
+
+//   final userCredential =
+//       await FirebaseAuth.instance.signInWithCredential(credential);
+//   await _firestore.collection('users').doc(userCredential.user!.uid).set({
+//     "name": userCredential.user!.displayName,
+//     "email": userCredential.user!.email,
+//     "status": "Unavalible",
+//     "uid": userCredential.user!.uid,
+//   });
+//   _firestore
+//       .collection('users')
+//       .doc(userCredential.user!.uid)
+//       .get()
+//       .then((value) => userCredential.user?.updateDisplayName(value['name']));
+//   // Once signed in, return the UserCredential
+//   print(userCredential.user);
+//   return userCredential.user!.uid;
+// }

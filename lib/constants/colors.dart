@@ -5,4 +5,6 @@ class ColorsApp {
   static Color colorBorderButtonAndText = Colors.black.withOpacity(0.8);
   static Color colorFocusField = Colors.black;
   static Color colorHintText = Colors.black.withOpacity(0.5);
+  static Color facebookColor = const Color.fromRGBO(66, 103, 178, 1);
+  static Color googleColor = const Color.fromRGBO(244, 180, 0, 1);
 }
