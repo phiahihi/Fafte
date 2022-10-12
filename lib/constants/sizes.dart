@@ -11,4 +11,5 @@ class SizesApp {
   static const s40 = 40.0;
   static const s48 = 48.0;
   static const s52 = 52.0;
+  static const s60 = 60.0;
 }

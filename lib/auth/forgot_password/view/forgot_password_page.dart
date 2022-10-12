@@ -76,69 +76,71 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
               // Showing the sign in form if the user is not authenticated
               return SafeArea(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(SizesApp.s16),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: IconButton(
-                                icon: const Icon(Icons.arrow_back_ios),
-                                onPressed: () {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, '/', (route) => false);
-                                }),
-                          ),
-                          Column(
-                            children: [
-                              Image.asset(
-                                'assets/images/logo.png',
-                                width: SizesApp.s48 * 4,
-                              ),
-                              const SizedBox(
-                                height: SizesApp.s16,
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Quên mật khẩu',
-                                  textAlign: TextAlign.start,
-                                  style: FontsApp().fontBodyLarge,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: SizesApp.s16,
-                              ),
-                              Container(
-                                width: size.width,
-                                alignment: Alignment.center,
-                                child: field(
-                                  size,
-                                  hintText: 'Tài khoản',
-                                  icon: Icons.email,
-                                  cont: _emailController,
-                                  isPassword: false,
-                                  validator: ((value) {
-                                    if (_emailValid(value!)) {
-                                      return null;
-                                    } else {
-                                      return 'Email không đúng định dạng';
-                                    }
+                child: SingleChildScrollView(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(SizesApp.s16),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: IconButton(
+                                  icon: const Icon(Icons.arrow_back_ios),
+                                  onPressed: () {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context, '/', (route) => false);
                                   }),
+                            ),
+                            Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/logo.png',
+                                  width: SizesApp.s48 * 4,
                                 ),
-                              ),
-                              OutlineButton(
-                                text: 'Gửi',
-                                onPressed: () => _forgotPassword(context),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(),
-                        ],
+                                const SizedBox(
+                                  height: SizesApp.s16,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Quên mật khẩu',
+                                    textAlign: TextAlign.start,
+                                    style: FontsApp().fontBodyLarge,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: SizesApp.s16,
+                                ),
+                                Container(
+                                  width: size.width,
+                                  alignment: Alignment.center,
+                                  child: field(
+                                    size,
+                                    hintText: 'Tài khoản',
+                                    icon: Icons.email,
+                                    cont: _emailController,
+                                    isPassword: false,
+                                    validator: ((value) {
+                                      if (_emailValid(value!)) {
+                                        return null;
+                                      } else {
+                                        return 'Email không đúng định dạng';
+                                      }
+                                    }),
+                                  ),
+                                ),
+                                OutlineButton(
+                                  text: 'Gửi',
+                                  onPressed: () => _forgotPassword(context),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
