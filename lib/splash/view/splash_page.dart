@@ -43,7 +43,7 @@ class SplashPage extends StatelessWidget {
             }
             if (snapshot.data![0] == false && snapshot.data![1] == false) {
               // Not a new user and not logged in
-              return const MainPage();
+              return const SignInPage();
             }
             if (snapshot.data![0] == false && snapshot.data![1] == true) {
               // Not a new user and logged in

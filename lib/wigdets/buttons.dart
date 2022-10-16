@@ -47,14 +47,16 @@ class BackgroundButton extends StatelessWidget {
   final String text;
   final void Function()? onPressed;
   final Color backgroundColor;
-  final FaIcon icon;
+  final Widget? icon;
+  final bool isHaveIcon;
 
   const BackgroundButton({
     super.key,
     required this.text,
     required this.onPressed,
     required this.backgroundColor,
-    required this.icon,
+    this.icon,
+    required this.isHaveIcon,
   });
 
   @override
@@ -75,7 +77,7 @@ class BackgroundButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              icon,
+              if (isHaveIcon) icon!,
               const SizedBox(
                 width: SizesApp.s8,
               ),
@@ -88,6 +90,33 @@ class BackgroundButton extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class IconWithButton extends StatelessWidget {
+  final void Function()? onPressed;
+  final Widget icon;
+
+  const IconWithButton({
+    super.key,
+    required this.onPressed,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+        minimumSize: const Size(0, 0),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: EdgeInsets.zero,
+      ),
+      onPressed: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.all(SizesApp.s8),
+        child: icon,
       ),
     );
   }

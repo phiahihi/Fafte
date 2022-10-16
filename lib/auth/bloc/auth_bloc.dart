@@ -84,9 +84,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authRepository.forgotPassword(email: event.email).then((value) {
         emit(UnAuthenticated());
       });
-
-      // final _prefs = await SharedPreferences.getInstance();
-      // await _prefs.setBool(Preferences.is_logged_in, true).then((value) {});
     } catch (e) {
       emit(AuthError(e.toString()));
       emit(UnAuthenticated());

@@ -20,7 +20,7 @@ class _BottomNavState extends State<BottomNav> {
             setState(() {
               widget.currentIndex = value;
             });
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, '/main');
             break;
           case 1:
             setState(() {

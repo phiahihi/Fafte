@@ -41,7 +41,7 @@ class _SignInPageState extends State<SignInPage> {
               print(state);
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                '/home',
+                '/main',
                 (route) => false,
               );
             }
@@ -192,6 +192,7 @@ class _SignInPageState extends State<SignInPage> {
                                 height: SizesApp.s16,
                               ),
                               BackgroundButton(
+                                isHaveIcon: true,
                                 text: 'Đăng nhập với Google',
                                 onPressed: () {
                                   _authenticateWithGoogle(context);

@@ -46,7 +46,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           if (state is Authenticated) {
             Navigator.pushNamedAndRemoveUntil(
               context,
-              '/home',
+              '/main',
               (route) => false,
             );
           }

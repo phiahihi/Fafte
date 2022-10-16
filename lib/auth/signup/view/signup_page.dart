@@ -45,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
           if (state is Authenticated) {
             Navigator.pushNamedAndRemoveUntil(
               context,
-              '/home',
+              '/main',
               (route) => false,
             );
           }
