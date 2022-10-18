@@ -107,17 +107,54 @@ class AuthRepository {
       final _prefs = await SharedPreferences.getInstance();
       final uId = userCredential.user?.uid;
       await _prefs.setString(Preferences.user_id, uId!);
-      appRepository.setUserId = uId;
+      // appRepository.setUserId = uId;
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
   }
 
-  Future<void> changePassword({required String password}) async {
+  // Future<void> changePassword({required String password}) async {
+  //   try {
+  //     await FirebaseAuth.instance.currentUser?.updatePassword(password);
+  //   } on Exception catch (e) {
+  //     throw Exception(e.toString());
+  //   }
+  // }
+
+  Future<String?> getPassword() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getString(Preferences.password);
+  }
+
+  Future<bool?> changePassword(
+      {required String newPassword, required String currentPassword}) async {
     try {
-      await FirebaseAuth.instance.currentUser?.updatePassword(password);
-    } on Exception catch (e) {
-      throw Exception(e.toString());
+      bool success = false;
+      //Create an instance of the current user.
+      var user = FirebaseAuth.instance.currentUser!;
+      //Must re-authenticate user before updating the password. Otherwise it may fail or user get signed out.
+      print(user.email);
+      final cred = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+      user.reauthenticateWithCredential(cred).then((value) async {
+        await user.updatePassword(newPassword).then((_) async {
+          final prefs = await SharedPreferences.getInstance();
+
+          success = true;
+          userDocumentRef
+              .doc(prefs.getString(Preferences.user_id))
+              .update({"password": newPassword});
+        }).catchError((error) {
+          print(error);
+        });
+      }).catchError((err) {
+        print(err);
+      });
+      return success;
+    } catch (e) {
+      print(e);
     }
   }
 }

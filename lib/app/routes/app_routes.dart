@@ -1,3 +1,4 @@
+import 'package:chat_app_b/main/view/menu_page/view/change_password/change_password.dart';
 import 'package:flutter/material.dart';
 import '../../auth/forgot_password/forgot_password.dart';
 import '../../auth/signin/view/signin_page.dart';
@@ -14,6 +15,7 @@ class AppRoutes {
     '/main': (BuildContext context) => const MainPage(),
     '/forgot_password': (BuildContext context) => const ForgotPassword(),
     '/home_page': (BuildContext context) => const HomePage(),
+    '/change_password': (BuildContext context) => const ChangePasswordPage()
     //   '/product': (BuildContext context) => const ProductDetailsPage(),
     //   '/favourite': (BuildContext context) => const FavouritePage(),
     //   '/cart': (BuildContext context) => CartPage(),

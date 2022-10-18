@@ -100,7 +100,7 @@ class UserRepository {
       final _prefs = await SharedPreferences.getInstance();
       final uId = userCredential.user?.uid;
       await _prefs.setString(Preferences.user_id, uId!);
-      appRepository.setUserId = uId;
+      // appRepository.setUserId = uId;
     } on Exception catch (e) {
       throw Exception(e.toString());
     }

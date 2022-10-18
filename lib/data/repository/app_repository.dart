@@ -1,7 +1,15 @@
 class AppRepository {
-  late final String? userId;
+  String userId = '';
 
-  set setUserId(String? userId) => this.userId = userId;
+  // Creating the getter method
+  // to get input from Field/Property
+  String get getUserId {
+    return userId;
+  }
 
-  String? get getUserId => userId;
+  // Creating the setter method
+  // to set the input in Field/Property
+  set setUserId(String name) {
+    userId = 'name';
+  }
 }

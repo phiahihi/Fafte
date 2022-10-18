@@ -23,7 +23,7 @@ class OutlineButton extends StatelessWidget {
       child: TextButton(
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(SizesApp.s20),
+            borderRadius: BorderRadius.circular(SizesApp.s8),
             side: BorderSide(
               width: SizesApp.s2,
               color: ColorsApp.colorBorderButtonAndText,
@@ -68,7 +68,7 @@ class BackgroundButton extends StatelessWidget {
         style: TextButton.styleFrom(
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(SizesApp.s20),
+            borderRadius: BorderRadius.circular(SizesApp.s8),
           ),
         ),
         onPressed: onPressed,

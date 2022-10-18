@@ -46,25 +46,25 @@ class MainRepository {
     BuildContext context, {
     required bool isFavourite,
   }) async {
-    final userId = RepositoryProvider.of<AppRepository>(context).userId;
+    // final userId = RepositoryProvider.of<AppRepository>(context).userId;
     if (isFavourite) {
       final updatedData = {'productId': productId};
       try {
-        await userCollectionRef
-            .doc(userId)
-            .collection('favouriteProducts')
-            .doc(productId)
-            .set(updatedData);
+        // await userCollectionRef
+        //     .doc(userId)
+        //     .collection('favouriteProducts')
+        //     .doc(productId)
+        //     .set(updatedData);
       } on Exception catch (e) {
         debugPrint(e.toString());
       }
     } else {
       try {
-        await userCollectionRef
-            .doc(userId)
-            .collection('favouriteProducts')
-            .doc(productId)
-            .delete();
+        // await userCollectionRef
+        //     .doc(userId)
+        //     .collection('favouriteProducts')
+        //     .doc(productId)
+        //     .delete();
       } on Exception catch (e) {
         debugPrint(e.toString());
       }

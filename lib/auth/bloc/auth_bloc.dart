@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '/auth/auth.dart';
 import '/data/repository/app_repository.dart';
@@ -23,11 +26,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<GoogleSignInRequested>(_signInWithGoogle);
     // When User Presses the SignOut Button, we will send the SignOutRequested Event to the AuthBloc to handle it and emit the UnAuthenticated State
     on<ForgotPasswordRequested>(_forgotPassword);
-    on<ChangePasswordRequested>(_changePassword);
+    // on<ChangePasswordRequested>(_changePassword);
     on<SignOutRequested>(_signOut);
   }
   final AuthRepository authRepository;
   final AppRepository appRepository;
+  final userDocumentRef = FirebaseFirestore.instance.collection('users');
 
   FutureOr<void> _signInUser(
     SignInRequested event,
@@ -44,7 +48,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final _prefs = await SharedPreferences.getInstance();
         await _prefs.setString(Preferences.user_id, uId!);
         await _prefs.setBool(Preferences.is_logged_in, true);
-        appRepository.setUserId = uId;
+        await _prefs.setString(Preferences.password, event.password);
+        // appRepository.setPassword = event.password;
+        print(appRepository.getUserId);
         emit(Loading());
       }).then((value) {
         emit(Authenticated());
@@ -119,23 +125,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(Loading());
     try {
       await authRepository.signOut().then((value) {
-        emit(UnAuthenticated());
-      });
-    } catch (e) {
-      emit(AuthError(e.toString()));
-      emit(UnAuthenticated());
-    }
-  }
-
-  FutureOr<void> _changePassword(
-    ChangePasswordRequested event,
-    Emitter<AuthState> emit,
-  ) async {
-    emit(Loading());
-    try {
-      await authRepository
-          .changePassword(password: event.password)
-          .then((value) {
         emit(UnAuthenticated());
       });
     } catch (e) {

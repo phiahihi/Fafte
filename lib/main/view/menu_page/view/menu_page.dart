@@ -131,7 +131,8 @@ class _MenuPageState extends State<MenuPage> {
                                       context,
                                       text: 'Đổi mật khẩu',
                                       onPressed: () {
-                                        userBloc.getUser();
+                                        Navigator.pushNamed(
+                                            context, '/change_password');
                                       },
                                     ),
                                     _buildTextButton(

@@ -32,4 +32,8 @@ class SharedPreferenceHelper {
   String? get userId {
     return _sharedPreference.getString(Preferences.user_id);
   }
+
+  String? get password {
+    return _sharedPreference.getString(Preferences.password);
+  }
 }

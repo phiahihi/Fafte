@@ -22,6 +22,6 @@ class UserModel {
 
     // you likely need to convert the date_posted field.  something like this
 
-    return UserModel(name: data['name']);
+    return UserModel(name: data['userName'] ?? data['name']);
   }
 }

@@ -21,7 +21,7 @@ class SplashPage extends StatelessWidget {
     if (_prefs.getBool(Preferences.is_logged_in) == true) {
       userState[1] = true;
     }
-    appRepository.setUserId = _prefs.getString(Preferences.user_id);
+    // appRepository.setUserId(_prefs.getString(Preferences.user_id));
     print(appRepository.getUserId);
     return userState;
   }
@@ -47,7 +47,7 @@ class SplashPage extends StatelessWidget {
             }
             if (snapshot.data![0] == false && snapshot.data![1] == true) {
               // Not a new user and logged in
-              return const MainPage();
+              return const SignInPage();
             }
             return const MainPage();
           }
